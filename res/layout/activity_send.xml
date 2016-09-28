@@ -4,9 +4,10 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent">
     <TextView
-            android:text="正在等待客户端连接"
+            android:text="正在等待接收端连接"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_client_status"/>
     <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"

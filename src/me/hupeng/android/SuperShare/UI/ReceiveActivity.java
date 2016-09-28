@@ -9,10 +9,12 @@ import android.os.Bundle;
 
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import me.hupeng.android.SuperShare.R;
+import me.hupeng.android.SuperShare.util.ToastUtil;
 import me.hupeng.android.SuperShare.util.wifi.WifiAdmin;
 import me.hupeng.android.SuperShare.util.wifi.WifiApAdmin;
 
@@ -23,7 +25,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Created by HUPENG on 2016/9/22.
+ * 接受Activity的界面
  */
 public class ReceiveActivity extends Activity {
     private WifiAdmin wifiAdmin = null;
@@ -31,6 +33,7 @@ public class ReceiveActivity extends Activity {
     private List<Map<String,Object>> wifiList = null;
     private Button btnRefresh = null;
     private SimpleAdapter adapter = null;
+
     private void init(){
         try{
             WifiApAdmin.closeWifiAp(ReceiveActivity.this);
@@ -52,19 +55,21 @@ public class ReceiveActivity extends Activity {
 
             @Override
             public void onNotifyWifiConnected() {
-                Log.i("ss_log", "connect");
+                Log.i("ss_log", "connect  连接成功");
             }
 
             @Override
             public void onNotifyWifiConnectFailed() {
-                Log.i("ss_log", "connect_fail");
+                Log.i("ss_log", "connect_fail 连接失败");
             }
         };
 
         wifiListView = (ListView)findViewById(R.id.list_ap);
+        wifiListView.setOnItemClickListener(new MyOnItemClickListener());
+        wifiAdmin.openWifi();
         wifiAdmin.startScan();
-        wifiList = new ArrayList<>();
 
+        wifiList = new ArrayList<>();
         List<ScanResult>list = wifiAdmin.getWifiList();
         for (int i = 0 ; i < list.size() ; i ++){
 
@@ -117,6 +122,15 @@ public class ReceiveActivity extends Activity {
                     refreshWifiList();
                     break;
             }
+        }
+    }
+
+    class MyOnItemClickListener implements AdapterView.OnItemClickListener{
+        @Override
+        public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+            HashMap<String,String> map=(HashMap<String,String>)wifiListView.getItemAtPosition(i);
+            //ToastUtil.toast(ReceiveActivity.this,"你选择的选项：" + i + " SSID:" + map.get("tv_ap_name") + " BSSID:" + map.get("tv_ap_info"));
+            wifiAdmin.addNetwork("SuperShare_" + map.get("tv_ap_name"),"88888888",WifiAdmin.TYPE_WPA );
         }
     }
 }

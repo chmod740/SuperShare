@@ -49,7 +49,7 @@ public class MinaUtil {
     /**
      * 一个简单的监听器，用以实现回调
      * */
-    private SimpleListener simpleListener = null;
+    private SimpleMinaListener simpleListener = null;
 
     /**
      * 一个bitMap实例
@@ -73,7 +73,7 @@ public class MinaUtil {
         public Object message;
     }
 
-    public static MinaUtil getInstance(SimpleListener simpleListener, Boolean isServer, String serverAddr){
+    public static MinaUtil getInstance(SimpleMinaListener simpleListener, Boolean isServer, String serverAddr){
         if (isServer){
             if (minaUtilServer == null){
                 minaUtilServer = new MinaUtil(simpleListener,isServer,null);
@@ -94,7 +94,7 @@ public class MinaUtil {
     /**
      * 实现单例模式，私有构造函数
      * */
-    private MinaUtil(SimpleListener simpleListener, Boolean isServer, String serverAddr){
+    private MinaUtil(SimpleMinaListener simpleListener, Boolean isServer, String serverAddr){
         this.isServer = isServer;
         this.simpleListener = simpleListener;
         this.serverAddr = serverAddr;
@@ -141,17 +141,6 @@ public class MinaUtil {
             acceptor.setHandler(new MyServerHandler());
             acceptor.getFilterChain().addLast("codec", new ProtocolCodecFilter(new MyImageFactory()));
 
-            //设置日志过滤器
-//            LoggingFilter loggingFilter = new LoggingFilter();
-//            loggingFilter.setSessionClosedLogLevel(LogLevel.NONE);
-//            loggingFilter.setSessionCreatedLogLevel(LogLevel.INFO);
-//            loggingFilter.setSessionOpenedLogLevel(LogLevel.INFO);
-//            loggingFilter.setMessageReceivedLogLevel(LogLevel.INFO);
-//
-//            acceptor.getFilterChain().addLast("logging",loggingFilter);
-
-            //设置客户机超时提醒
-//            acceptor.getSessionConfig().setIdleTime(IdleStatus.READER_IDLE, 5);
             try {
                 acceptor.bind(new InetSocketAddress(9191));
             }catch (Exception e){
@@ -208,17 +197,6 @@ public class MinaUtil {
         return true;
     }
 
-//    /**
-//     * 实现线程间的通信
-//     * */
-//    private Handler mHandler = new Handler() {
-//        @Override
-//        public void handleMessage(Message msg) {
-//            MessageAndIosession messageAndIosession = (MessageAndIosession)msg.obj;
-//            simpleListener.onReceive(messageAndIosession.message,messageAndIosession.ioSession);
-//            super.handleMessage(msg);
-//        }
-//    };
 
     /**
      * handler 用以实现各种客户端消息的回调
@@ -236,13 +214,6 @@ public class MinaUtil {
         public void messageReceived(IoSession session, Object message)
                 throws Exception {
 
-            //调用线程通信
-//            Message msg = new Message();
-//            MessageAndIosession msgAndIosession = new MessageAndIosession();
-//            msgAndIosession.ioSession = session;
-//            msgAndIosession.message = message;
-//            msg.obj = msgAndIosession;
-//            mHandler.sendMessage(msg);
             simpleListener.onReceive(message,session);
             System.out.println(session.getId());
             System.out.println("messageReceived");
