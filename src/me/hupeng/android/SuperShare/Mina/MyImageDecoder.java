@@ -41,20 +41,7 @@ public class MyImageDecoder extends CumulativeProtocolDecoder {
                 return false;
             }else{
                 //消息内容足够
-//                ioBuffer.reset();//重置恢复position位置到操作前
-//                int sumlen = 4+len;//总长 = 包头+包体
-//                byte[] packArr = new byte[sumlen];
-//                ioBuffer.get(packArr, 0 , sumlen);
-//
-//                IoBuffer buffer = IoBuffer.allocate(sumlen);
-//                buffer.put(packArr);
-//                buffer.flip();
-//                //protocolDecoderOutput.write(buffer);
-//                buffer.free();
-//
-//                if(ioBuffer.remaining() > 0){//如果读取一个完整包内容后还粘了包，就让父类再调用一次，进行下一次解析
-//                    return true;
-//                }
+
                 ioBuffer.reset();
                 int length = ioBuffer.getInt();
 
@@ -72,18 +59,7 @@ public class MyImageDecoder extends CumulativeProtocolDecoder {
         }
         return false;//处理成功，让父类进行接收下个包
 
-//        int length = ioBuffer.getInt();
-//
-//        System.out.println("接受文件长度：" +  length);
-//
-//        byte dest[] = new byte[length];
-//        ioBuffer.get(dest);
-//        Bitmap bmp;
-//        ByteArrayOutputStream outPut = new ByteArrayOutputStream();
-//        bmp = BitmapFactory.decodeByteArray(dest, 0, dest.length);
-//        bmp.compress(Bitmap.CompressFormat.JPEG, 100, outPut);
-//        protocolDecoderOutput.write(bmp);
-//        return false;
+
     }
 
 

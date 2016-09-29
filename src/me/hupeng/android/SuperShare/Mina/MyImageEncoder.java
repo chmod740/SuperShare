@@ -41,16 +41,15 @@ public class MyImageEncoder implements ProtocolEncoder {
             ioBuffer.setAutoShrink(true);
             ioBuffer.setAutoExpand(true);
             ioBuffer.putInt(length);
-            ioBuffer.putInt(myData.clientId);
             ioBuffer.put(picByte);
             ioBuffer.capacity(length+8);
             ioBuffer.flip();
             out.write(ioBuffer);
 
-            if (message instanceof MyData){
-
-                myData.bitmap.recycle();
-            }
+//            if (message instanceof MyData){
+//
+//                myData.bitmap.recycle();
+//            }
         }
     }
 

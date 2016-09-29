@@ -3,31 +3,27 @@
               android:orientation="vertical"
               android:layout_width="match_parent"
               android:layout_height="match_parent">
+
     <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" android:layout_gravity="center_horizontal">
         <TextView
-                android:text="当前在线主机："
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-        />
-        <Button
-                style="?android:attr/buttonStyleSmall"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="当前状态："
+                android:layout_gravity="center_horizontal"/>
+        <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="刷新wifi列表"
-                android:id="@+id/btn_refresh" android:layout_gravity="right"/>
-        <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="进入"
-                android:id="@+id/button"/>
-
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="正在等待接收图片"
+                android:id="@+id/tv_client_status" android:layout_gravity="center_horizontal"/>
     </LinearLayout>
-    <ListView android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:id="@+id/list_ap"
-    >
-    </ListView>
+    <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/imageView" android:layout_gravity="center_horizontal"/>
+
 </LinearLayout>

@@ -5,14 +5,18 @@ import android.content.ContentResolver;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import me.hupeng.android.SuperShare.Mina.MinaUtil;
+import me.hupeng.android.SuperShare.Mina.MyData;
 import me.hupeng.android.SuperShare.Mina.SimpleMinaListener;
 import me.hupeng.android.SuperShare.R;
 import me.hupeng.android.SuperShare.util.wifi.WifiApAdmin;
@@ -95,7 +99,7 @@ public class SendActivity extends Activity {
                 imageView.setImageBitmap(bitmap);
                 this.bitmap = bitmap;
                 if (clientNum > 0){
-                    minaUtil.send(bitmap);
+                    sendImage(bitmap);
                 }
             } catch (FileNotFoundException e) {
                 Log.e("Exception", e.getMessage(),e);
@@ -117,19 +121,62 @@ public class SendActivity extends Activity {
         //主机上线
         @Override
         public void onLine(IoSession session) {
-            tvClientStatus.setText("接收端已连接");
-            clientNum ++;
-            if (bitmap != null){
-                minaUtil.send(bitmap);
-            }
+            Message message = new Message();
+            message.what = SimpleMinaListener.ON_LINE;
+            handler.sendMessage(message);
         }
         //主机下线
         @Override
         public void offLine(IoSession session) {
-            clientNum --;
-            if (clientNum ==0){
-                tvClientStatus.setText("正在等待接收端连接");
+            Message message = new Message();
+            message.what = SimpleMinaListener.OFF_LINE;
+            handler.sendMessage(message);
+        }
+    }
+
+    private Handler handler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            int id = msg.what;
+            switch (id){
+                case SimpleMinaListener.ON_LINE:
+                    onLine();
+                    break;
+                case SimpleMinaListener.OFF_LINE:
+                    offLine();
+                    break;
             }
         }
+    };
+
+    private void onLine(){
+        tvClientStatus.setText("接收端已连接");
+        clientNum ++;
+        if (bitmap != null){
+            sendImage(bitmap);
+        }
+    }
+
+    private void offLine(){
+        clientNum --;
+        if (clientNum ==0){
+            tvClientStatus.setText("正在等待接收端连接");
+        }
+    }
+
+    private void sendImage(Bitmap bitmap){
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    MyData myData = new MyData();
+                    myData.bitmap = bitmap;
+                    minaUtil.send(myData);
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+
+            }
+        }).start();
     }
 }

@@ -34,7 +34,19 @@ public class ReceiveActivity extends Activity {
     private Button btnRefresh = null;
     private SimpleAdapter adapter = null;
 
+    private Button button = null;
+
     private void init(){
+
+        button = (Button)findViewById(R.id.button);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(ReceiveActivity.this,ReceiveImageActivity.class);
+                startActivity(intent);
+            }
+        });
+
         try{
             WifiApAdmin.closeWifiAp(ReceiveActivity.this);
         }catch (Exception e){
@@ -56,6 +68,8 @@ public class ReceiveActivity extends Activity {
             @Override
             public void onNotifyWifiConnected() {
                 Log.i("ss_log", "connect  连接成功");
+                Intent intent = new Intent(ReceiveActivity.this,ReceiveImageActivity.class);
+                startActivity(intent);
             }
 
             @Override
@@ -66,8 +80,9 @@ public class ReceiveActivity extends Activity {
 
         wifiListView = (ListView)findViewById(R.id.list_ap);
         wifiListView.setOnItemClickListener(new MyOnItemClickListener());
-        wifiAdmin.openWifi();
         wifiAdmin.startScan();
+
+
 
         wifiList = new ArrayList<>();
         List<ScanResult>list = wifiAdmin.getWifiList();

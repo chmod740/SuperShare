@@ -30,5 +30,6 @@
         <activity android:name=".UI.MainActivity"></activity>
         <activity android:name=".UI.SendActivity"></activity>
         <activity android:name=".UI.ReceiveActivity"></activity>
+        <activity android:name=".UI.ReceiveImageActivity"></activity>
     </application>
 </manifest>

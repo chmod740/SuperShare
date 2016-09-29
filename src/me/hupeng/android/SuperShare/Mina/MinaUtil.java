@@ -272,6 +272,7 @@ public class MinaUtil {
         public void sessionOpened(IoSession session) throws Exception {
             System.out.println(session.getId());
             System.out.println("sessionOpened");
+            simpleListener.onLine(session);
         }
 
     }
@@ -324,6 +325,7 @@ public class MinaUtil {
         public void sessionOpened(IoSession session) throws Exception {
             System.out.println(session.getId());
             System.out.println("sessionOpened");
+            simpleListener.onLine(session);
         }
     }
 }
