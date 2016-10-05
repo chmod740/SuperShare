@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@drawable/background_about"
+              android:weightSum="1"
+              >
+       <TextView
+               android:paddingTop="250dp"
+               android:text=" 当前版本：                                   1.0.1"
+               android:textColor="#111111"
+               android:layout_marginLeft="30dp"
+               android:layout_width="271dp"
+               android:layout_height="wrap_content"
+               android:drawablePadding="15dp"/>
+       <ImageView
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:src="@drawable/line"
+               android:id="@+id/imageView2"/>
+       <TextView
+               android:paddingTop="15dp"
+               android:text="联系我们：                   www.webprague.com"
+               android:textColor="#111111"
+               android:layout_marginLeft="30dp"
+               android:layout_width="271dp"
+               android:layout_height="wrap_content"
+               android:drawablePadding="15dp"/>
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/line"
+            android:id="@+id/imageView3"/>
+    <TextView
+            android:paddingTop="15dp"
+            android:text="开发团队：                                    PP-Couple"
+            android:textColor="#111111"
+            android:layout_marginLeft="30dp"
+            android:layout_width="271dp"
+            android:layout_height="wrap_content"
+            android:drawablePadding="15dp"/>
+    <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/line"
+            android:id="@+id/imageView4"/>
+</LinearLayout>
