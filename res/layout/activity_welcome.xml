@@ -2,13 +2,14 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:orientation="vertical"
               android:layout_width="match_parent"
-              android:layout_height="match_parent">
+              android:layout_height="match_parent"
+                android:background="@drawable/welcome">
 
     <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
             android:id="@+id/imageView"
-            android:layout_gravity="center_horizontal"
-            android:src="@drawable/welcome"/>
+            android:layout_gravity="center_vertical"
+          />
             <!--android src属性指定imageView里面要显示的资源文件的来源路径，也就是在欢迎界面显示的图片-->
 </LinearLayout>

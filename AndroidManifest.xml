@@ -20,8 +20,8 @@
     <!--  从SDCard读取数据权限 -->
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
 
-    <application android:label="@string/app_name" android:icon="@drawable/ic_launcher">
-        <activity android:name=".UI.WelcomeActivity">
+    <application android:label="@string/app_name" android:icon="@drawable/logo" >
+        <activity android:name=".UI.WelcomeActivity" android:theme="@style/titleTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
