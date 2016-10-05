@@ -1,5 +1,6 @@
 package me.hupeng.android.SuperShare.UI;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Intent;
@@ -8,6 +9,7 @@ import android.net.wifi.ScanResult;
 import android.os.Bundle;
 
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -107,6 +109,9 @@ public class ReceiveActivity extends Activity {
         setContentView(R.layout.activity_receive);
         init();
 
+        ActionBar actionBar = this.getActionBar();
+        actionBar.setDisplayOptions(ActionBar.DISPLAY_HOME_AS_UP, ActionBar.DISPLAY_HOME_AS_UP);
+
     }
 
     private void refreshWifiList(){
@@ -148,4 +153,22 @@ public class ReceiveActivity extends Activity {
             wifiAdmin.addNetwork("SuperShare_" + map.get("tv_ap_name"),"88888888",WifiAdmin.TYPE_WPA );
         }
     }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                // 当ActionBar图标被点击时调用
+                Intent intent = new Intent(ReceiveActivity.this, MainActivity.class);
+                startActivity(intent);
+                finish();
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+
 }
+
+
+
